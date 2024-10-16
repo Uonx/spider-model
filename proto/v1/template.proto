@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package v1;
+
+import "proto/basic/basic.proto";
+
+option go_package = "github.com/Uonx/spider-model/proto/v1;v1";
+
+message Task {
+    int64  Id = 1;
+    string DataUrl = 2;
+    string TaskUrl = 3;
+    string FormParams = 4;
+	string JsonParams =5;
+	string BackHeaderUrl =6;
+    string DataMethod = 7;
+	string ContentType = 8;
+    string Auth = 9;
+    string TemplateName = 10;
+    string TemplateContents = 11;
+    int64  Weight = 12;
+    int64  TemplateType = 13;
+    string Address = 14;
+    repeated Task      NextTasks = 15;
+    repeated TaskItem  Items = 16;
+    basic.Response Response = 17;
+}
+
+message TaskItem {
+	string PayLoad = 1;
+}
+
+message Results {
+    repeated Task CurrentTask = 1;
+}
+
+message MultiTask{
+    repeated Task Tasks = 1;
+    string Proxy = 2;
+    int64 ProxyType = 3;
+    string UserDir = 4;
+    int64 BrowseType = 5;
+    int64 BrowserType = 6;
+    int64 BrowserVersion = 7;
+    int64 ActionType = 8;
+    int64 Platform = 9;
+    int64 BrowserOp = 10;
+}
+
+service TemplateMultiTaskEvent {
+    rpc TaskOperation (MultiTask) returns (Results) {};
+}
